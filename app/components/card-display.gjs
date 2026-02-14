@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { eq, or, not } from 'ember-truth-helpers';
-import { action } from '@ember/object';
 
 export default class CardDisplay extends Component {
   get imageUrl() {

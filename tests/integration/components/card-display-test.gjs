@@ -7,22 +7,17 @@ module('Integration | Component | card-display', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Updating values is achieved using autotracking, just like in app code. For example:
-    // class State { @tracked myProperty = 0; }; const state = new State();
-    // and update using state.myProperty = 1; await rerender();
-    // Handle any actions with function myAction(val) { ... };
+    this.card = {
+      Id: 'hero-1',
+      Name: 'Spider-Man',
+      Type: 'Hero',
+      Classification: 'Hero',
+      Rules: 'Great responsibility.'
+    };
 
-    await render(<template><CardDisplay /></template>);
+    await render(<template><CardDisplay @card={{this.card}} /></template>);
 
-    assert.dom().hasText('');
-
-    // Template block usage:
-    await render(<template>
-      <CardDisplay>
-        template block text
-      </CardDisplay>
-    </template>);
-
-    assert.dom().hasText('template block text');
+    assert.dom('.card-title h4').hasText('Spider-Man');
+    assert.dom('.rules').hasText('Great responsibility.');
   });
 });

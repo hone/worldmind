@@ -130,7 +130,7 @@ export default class CerebroApiService extends Service {
           const url = `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${card.Id}.jpg`;
           try {
             await fetch(url, { mode: 'no-cors' }); 
-          } catch (e) {
+          } catch {
             // Ignore failures for individual images
           }
           count++;
@@ -244,7 +244,7 @@ export default class CerebroApiService extends Service {
               case 'def':
               case 'defense':
                 return compare(card.Defense, val, op);
-              case 's':
+              case 'sc':
               case 'sch':
               case 'scheme':
                 return compare(card.Scheme, val, op);
@@ -252,9 +252,10 @@ export default class CerebroApiService extends Service {
               case 'boost':
                 return compare(card.Boost, val, op);
               case 'bs':
-              case 'star':
+              case 'star': {
                 const hasStar = (card.Boost || '').includes('{s}');
                 return val === 'yes' || val === 'true' || val === '1' ? hasStar : !hasStar;
+              }
               default:
                 return true;
             }
